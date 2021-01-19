@@ -16,14 +16,14 @@ void print_help() {
     printf("                              Apply sequence of [options] to <input-file> image and save\n");
     printf("                              result to the <output-file> image\n");
     printf("Options:\n");
-    printf("  -contrast <amount>          Change contrast of the image by <amount>\n");
-    printf("  -sharpen                    Apply sharpening\n");
-    printf("  -blur <radius>              Apply box average blur\n");
-    printf("  -invert                     Invert image colors\n");
-    printf("  -dither                     Apply dithering\n");
-    printf("  -scale <width> <height>     Scale the image to target dimentions\n");
-    printf("  -compose <path> <?x> <?y>   Paste the image file at <path> at target position\n");
-    printf("  -resize <width> <height> <?x> <?y>\t\n");
+    printf("  --contrast <amount>         Change contrast of the image by <amount>\n");
+    printf("  --sharpen                   Apply sharpening\n");
+    printf("  --blur <radius>             Apply box average blur\n");
+    printf("  --invert                    Invert image colors\n");
+    printf("  --dither                    Apply dithering\n");
+    printf("  --scale <width> <height>    Scale the image to target dimentions\n");
+    printf("  --compose <path> <?x> <?y>  Paste the image file at <path> at target position\n");
+    printf("  --resize <width> <height> <?x> <?y>\t\n");
     printf("                              Resize the canvas without scaling the image,\t\n");
     printf("                              and move the image to target position\t\n");
     

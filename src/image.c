@@ -12,7 +12,7 @@ int image_read_ppm(Image* imgp, FILE* imgin) {
     int res;
 
     res = getline(&line, &len, imgin);
-    if (!strcmp(line, "P6")) fail(ERR_FILE_READ, "");
+    if (strcmp(line, "P6\n")) fail(ERR_FILE_READ, "");
 
     while (getline(&line, &len, imgin) != -1 && line[0] == '#');
 
