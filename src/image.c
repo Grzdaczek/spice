@@ -60,7 +60,7 @@ int image_scale_nn(Image* imgp, int nw, int nh) {
         int ny = i / nw;
         int ox = (int)(nx/sx);
         int oy = (int)(ny/sy);
-        datp[i] = imgp->data[ox + oy * imgp->height];
+        datp[i] = imgp->data[ox + oy * imgp->width];
     }
 
     free(imgp->data);
