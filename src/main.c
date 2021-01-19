@@ -47,12 +47,13 @@ int main(int argc, char** argv) {
     if (imgout == NULL) fail(ERR_FILE_OPEN, argv[2]);
   
     for (i = 3; i < argc; i++) {
-        if (argv[i][0] == '-') {
+        if (argv[i][0] == '-' && argv[i][1] == '-') {
             queue_len += 1;
             queue[queue_len-1].argc = 1;
             queue[queue_len-1].argv = &argv[i];
         }
         else {
+            if (i == 3) fail(ERR_OPTION_UNKNOWN, argv[i]);
             queue[queue_len-1].argc += 1;
         }
     }

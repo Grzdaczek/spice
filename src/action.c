@@ -94,14 +94,14 @@ int dispatch_contrast(Image *imgp, ActionParams params) {
 }
 
 ActionArr DISPATCHERS[] = {
-    {"-invert", dispatch_invert},
-    {"-scale",  dispatch_scale},
-    {"-dither",  dispatch_dither},
-    {"-blur",  dispatch_blur},
-    {"-sharpen",  dispatch_sharpen},
-    {"-resize",  dispatch_resize},
-    {"-compose",  dispatch_compose},
-    {"-contrast",  dispatch_contrast},
+    {"--invert", dispatch_invert},
+    {"--scale",  dispatch_scale},
+    {"--dither",  dispatch_dither},
+    {"--blur",  dispatch_blur},
+    {"--sharpen",  dispatch_sharpen},
+    {"--resize",  dispatch_resize},
+    {"--compose",  dispatch_compose},
+    {"--contrast",  dispatch_contrast},
 };
 
 ActionDispatcher match_dispatcher(char* label) {
