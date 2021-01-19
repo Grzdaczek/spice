@@ -21,7 +21,7 @@ int image_read_ppm(Image* imgp, FILE* imgin) {
 
     getline(&line, &len, imgin);
     sscanf(line, "%d", &imgp->bitdepth);
-    
+
     imgp->data = malloc(imgp->data_size * sizeof(PxRGB));
     int result = fread(imgp->data, sizeof(PxRGB), imgp->data_size, imgin);
 
@@ -155,7 +155,7 @@ int image_compose(Image* img1p, Image* img2p, int x, int y) {
 
     for ( i = 0; i < img2p->data_size; i++) {
         int ix = i % img2p->width + x;
-        int iy = i / img2p->height + y;
+        int iy = i / img2p->width + y;
         if (ix >= img1p->width || ix < 0) continue;
         if (iy >= img1p->height || iy < 0) continue;
         int ii = img1p->width * iy + ix;
