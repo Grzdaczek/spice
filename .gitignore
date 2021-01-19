@@ -1,0 +1,12 @@
+bin
+deps
+obj
+test
+
+.*/*
+**/*.o
+**/*.d
+**/*.out
+**/*.bin
+**/*.swap
+**/*.DS_Store
