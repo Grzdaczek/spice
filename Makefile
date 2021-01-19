@@ -4,7 +4,7 @@ V	= 0
 OPT	= -O2
 
 CFILES	= main.c image.c err.c action.c
-BINFILE	= ppmsteg
+BINFILE	= spice
 
 SRCDIR	:= src
 OBJDIR	:= obj
@@ -50,11 +50,6 @@ clean:
 
 %.d: ;
 
-i:
-	@printf "$(SRCS)\n"
-	@printf "$(OBJS)\n"
-	@printf "$(DEPS)\n"
-
 #=-- Tests --------------------------------------------------------------------
 IMG		= Droste.ppm
 TAIL	= -resize 680 512 340 0 -compose $(IMG)
@@ -85,5 +80,4 @@ contrast:
 	@printf "  TEST\t$@\n"
 	$(HEAD) -$@ 1.5 $(TAIL)
 
-
-.PHONY: testdir all clean test
+.PHONY: all clean test testdir
