@@ -45,6 +45,8 @@ int image_invert(Image* imgp) {
         pix->g = 0xFF ^ pix->g;
         pix->b = 0xFF ^ pix->b;
     }
+
+    return 0;
 }
 
 int image_scale_nn(Image* imgp, int nw, int nh) {
@@ -68,6 +70,8 @@ int image_scale_nn(Image* imgp, int nw, int nh) {
     imgp->width = nw;
     imgp->height = nh;
     imgp->data_size = nsize;
+
+    return 0;
 }
 
 int image_dither(Image* imgp) {
@@ -92,6 +96,8 @@ int image_dither(Image* imgp) {
         px[i].g = nluma;
         px[i].b = nluma;
     }
+
+    return 0;
 }
 
 int image_kernel_filter(Image* imgp, Kernel kernel) {
@@ -128,6 +134,8 @@ int image_kernel_filter(Image* imgp, Kernel kernel) {
     free(imgp->data);
     free(kernel.data);
     imgp->data = data;
+
+    return 0;
 }
 
 int image_resize(Image* imgp, int w, int h, int x, int y) {
@@ -148,6 +156,8 @@ int image_resize(Image* imgp, int w, int h, int x, int y) {
     imgp->width = w;
     imgp->height = h;
     imgp->data_size = w * h;
+
+    return 0;
 }
 
 int image_compose(Image* img1p, Image* img2p, int x, int y) {
@@ -161,6 +171,8 @@ int image_compose(Image* img1p, Image* img2p, int x, int y) {
         int ii = img1p->width * iy + ix;
         img1p->data[ii] = img2p->data[i];
     }
+
+    return 0;
 }
 
 int image_contrast(Image* imgp, double x) {
@@ -171,6 +183,8 @@ int image_contrast(Image* imgp, double x) {
         imgp->data[i].g = CLAMP_8B(((imgp->data[i].g - 256/2) * x ) + 256/2);
         imgp->data[i].b = CLAMP_8B(((imgp->data[i].b - 256/2) * x ) + 256/2);
     }
+
+    return 0;
 }
 
 /* TODO: implement */
@@ -182,10 +196,12 @@ int image_brightness(Image* imgp, int db) {
         imgp->data->g += db;
         imgp->data->b += db;
     }
+
+    return 0;
 }
 
 int image_hue(Image* imgp, int dh) {
-
+    return 0;
 }
 
 /*=-------------------------------------------------------------------------=*/

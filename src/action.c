@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "action.h"
 #include "err.h"
 
@@ -12,14 +13,9 @@ int dispatch_invert(Image *imgp, ActionParams params) {
 int dispatch_scale(Image *imgp, ActionParams params) {
     int x, y;
     if(params.argc != 3) return 1;
-    if(strcmp(params.argv[0], "nn")) {
-        sscanf(params.argv[1], "%d", &x);
-        sscanf(params.argv[2], "%d", &y);
-        return image_scale_nn(imgp, x, y);
-    }
-    else if (strcmp(params.argv[0], "bl")) {
-        return 0;
-    }
+    sscanf(params.argv[1], "%d", &x);
+    sscanf(params.argv[2], "%d", &y);
+    return image_scale_nn(imgp, x, y);
 }
 
 int dispatch_dither(Image *imgp, ActionParams params) {
@@ -62,14 +58,15 @@ int dispatch_compose(Image *imgp, ActionParams params) {
     }
     Image i;
     image_read_ppm(&i, fopen(params.argv[1], "r"));
-    image_compose(imgp, &i, x, y);
+    int result = image_compose(imgp, &i, x, y);
     free(i.data);
+    return result;
 }
 
 int dispatch_contrast(Image *imgp, ActionParams params) {
     double x = 0;
     if (params.argc >= 2) sscanf(params.argv[1], "%lf", &x);
-    image_contrast(imgp, x);
+    return image_contrast(imgp, x);
 }
 
 ActionArr DISPATCHERS[] = {
