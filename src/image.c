@@ -77,7 +77,7 @@ int image_dither(Image* imgp) {
     PxRGB* px = imgp->data;
 
     for (i = 0; i < imgp->data_size; i++) {
-        int oluma = (px[i].g + px[i].g + px[i].b) / 3;
+        int oluma = px[i].r/3 + px[i].g/3 + px[i].b/3;
         int nluma = oluma > 127 ? 255 : 0;
         int dluma = oluma - nluma;
         if(i%w)
