@@ -52,7 +52,7 @@ clean:
 
 #=-- Tests --------------------------------------------------------------------
 IMG		= Droste.ppm
-TAIL	= -resize 680 512 340 0 -compose $(IMG)
+TAIL	= --resize 680 512 340 0 --compose $(IMG)
 HEAD	= $(Q)$(BINDIR)/$(BINFILE) $(IMG) $(TESTDIR)/$@.ppm
 
 OPTIONLESS = invert dither sharpen
@@ -66,18 +66,18 @@ testdir:
 
 $(OPTIONLESS):
 	@printf "  TEST\t$@\n"
-	$(HEAD) -$@ $(TAIL)
+	$(HEAD) --$@ $(TAIL)
 
 blur:
 	@printf "  TEST\t$@\n"
-	$(HEAD) -$@ 10 $(TAIL)
+	$(HEAD) --$@ 10 $(TAIL)
 
 scale:
 	@printf "  TEST\t$@\n"
-	$(HEAD) -$@ 680 1024 $(TAIL)
+	$(HEAD) --$@ 680 1024 $(TAIL)
 
 contrast:
 	@printf "  TEST\t$@\n"
-	$(HEAD) -$@ 1.5 $(TAIL)
+	$(HEAD) --$@ 1.5 $(TAIL)
 
 .PHONY: all clean test testdir
