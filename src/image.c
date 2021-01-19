@@ -190,13 +190,6 @@ int image_contrast(Image* imgp, double x) {
 /* TODO: implement */
 
 int image_brightness(Image* imgp, int db) {
-    int i;
-    for (i = 0; i < imgp->data_size; i++) {
-        imgp->data->r += db;
-        imgp->data->g += db;
-        imgp->data->b += db;
-    }
-
     return 0;
 }
 

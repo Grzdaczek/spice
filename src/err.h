@@ -9,9 +9,10 @@
 #define ERR_NO_OUTPUT "no output file selected"
 
 #define ERR_FILE_OPEN "cannot open the file"
-#define ERR_FILE_READ "cannot read ppm image, file might be corupted"
+#define ERR_FILE_READ "cannot read ppm image, file might be corrupted"
 
 #define ERR_OPTION_UNKNOWN "unknown option"
+#define ERR_OPTION_INVALID "improper use of option"
 
 void fail(char* code, char* comment);
 
