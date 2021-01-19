@@ -56,32 +56,33 @@ i:
 	@printf "$(DEPS)\n"
 
 #=-- Tests --------------------------------------------------------------------
-IMG		= Lenna.ppm
-TAIL	= -resize 1024 512 512 0 -compose $(IMG)
+IMG		= Droste.ppm
+TAIL	= -resize 1350 1024 675 0 -compose $(IMG)
 HEAD	= $(Q)$(BINDIR)/$(BINFILE) $(IMG) $(TESTDIR)/$@.ppm
 
 OPTIONLESS = invert dither sharpen
-OPTIONFULL = blur scale contrast
+OPTIONFULL = blur contrast scale
 
 test: testdir $(BINDIR)/$(BINFILE) $(OPTIONLESS) $(OPTIONFULL)
 
 testdir:
+	@rm -rf $(TESTDIR)
 	@mkdir -p $(TESTDIR)
 
 $(OPTIONLESS):
-	@printf "  GEN\t$@\n"
+	@printf "  TEST\t$@\n"
 	$(HEAD) -$@ $(TAIL)
 
 blur:
-	@printf "  GEN\t$@\n"
+	@printf "  TEST\t$@\n"
 	$(HEAD) -$@ 10 $(TAIL)
 
 scale:
-	@printf "  GEN\t$@\n"
+	@printf "  TEST\t$@\n"
 	$(HEAD) -$@ 1024 1024 $(TAIL)
 
 contrast:
-	@printf "  GEN\t$@\n"
+	@printf "  TEST\t$@\n"
 	$(HEAD) -$@ 1.5 $(TAIL)
 
 
