@@ -36,11 +36,12 @@ int image_read_ppm(Image* imgp, FILE* imgin);
 int image_write_ppm(Image* imgp, FILE* imgout);
 int image_invert(Image* imgp);
 int image_scale_nn(Image* imgp, int w, int h);
-int image_dither(Image* imgp);
+int image_dither(Image* imgp, int bitdepth);
 int image_kernel_filter(Image* imgp, Kernel kernel);
 int image_resize(Image *imgp, int w, int h, int x, int y);
 int image_compose(Image* img1p, Image* img2p, int x, int y);
 int image_contrast(Image* img1p, double x);
+int image_grayscale(Image* imgp);
 
 Kernel kernel_normalized(int size);
 Kernel kernel_sobel(int size);

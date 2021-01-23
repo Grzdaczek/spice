@@ -25,8 +25,14 @@ int dispatch_scale(Image *imgp, ActionParams params) {
 }
 
 int dispatch_dither(Image *imgp, ActionParams params) {
-    if (params.argc != 1) FAIL_OPTION;
-    return image_dither(imgp);
+    int x;
+
+    if (params.argc != 2) FAIL_OPTION;
+    PARAM_ASSERT_LOAD(1, "%d", &x);
+    if (x <= 0) x = 1;
+    if (x > 8) x = 8;
+
+    return image_dither(imgp, x);
 }
 
 int dispatch_blur(Image *imgp, ActionParams params) {
@@ -93,6 +99,11 @@ int dispatch_contrast(Image *imgp, ActionParams params) {
     return image_contrast(imgp, x);
 }
 
+int dispatch_grayscale(Image *imgp, ActionParams params) {
+    if (params.argc != 1) FAIL_OPTION;
+    return image_grayscale(imgp);
+}
+
 ActionArr DISPATCHERS[] = {
     {"--invert", dispatch_invert},
     {"--scale",  dispatch_scale},
@@ -102,6 +113,7 @@ ActionArr DISPATCHERS[] = {
     {"--resize",  dispatch_resize},
     {"--compose",  dispatch_compose},
     {"--contrast",  dispatch_contrast},
+    {"--grayscale",  dispatch_grayscale},
 };
 
 ActionDispatcher match_dispatcher(char* label) {

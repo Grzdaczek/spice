@@ -74,27 +74,50 @@ int image_scale_nn(Image* imgp, int nw, int nh) {
     return 0;
 }
 
-int image_dither(Image* imgp) {
+int image_dither(Image* imgp, int bitdepth) {
     int i;
     int w = imgp->width;
     int h = imgp->height;
     PxRGB* px = imgp->data;
 
+    unsigned char mask = 0xff << (8 - bitdepth);
+
     for (i = 0; i < imgp->data_size; i++) {
-        int oluma = px[i].r/3 + px[i].g/3 + px[i].b/3;
-        int nluma = oluma > 127 ? 255 : 0;
-        int dluma = oluma - nluma;
-        if(i%w)
-            px[i+1].g += MIN(dluma * 7.0/16.0, 255);
-        if(i/w != h) {
-            px[i+w-1].g += MIN(dluma * 3.0/16.0, 255);
-            px[i+w  ].g += MIN(dluma * 5.0/16.0, 255);
-            px[i+w+1].g += MIN(dluma * 1.0/16.0, 255);
+        unsigned char r = (px[i].r & mask) * (255.0/mask);
+        unsigned char g = (px[i].g & mask) * (255.0/mask);
+        unsigned char b = (px[i].b & mask) * (255.0/mask);
+
+        int dr = r - px[i].r;
+        int dg = g - px[i].g;
+        int db = b - px[i].b;
+        
+        int x = i % imgp->width;
+        int y = i / imgp->width;
+
+        if (x != w) {
+            px[i+1  ].r -= dr * 7.0/16.0;
+            px[i+1  ].g -= dg * 7.0/16.0;
+            px[i+1  ].b -= db * 7.0/16.0;
+        }
+        if (y != h-1) {
+            if (x != 0) {
+                px[i+w-1].r -= dr * 3.0/16.0;
+                px[i+w-1].b -= db * 3.0/16.0;
+                px[i+w-1].g -= dg * 3.0/16.0;
+            }
+            if (x != w) {
+                px[i+w+1].r -= dr * 1.0/16.0;
+                px[i+w+1].g -= dg * 1.0/16.0;
+                px[i+w+1].b -= db * 1.0/16.0;
+            }
+            px[i+w  ].r -= dr * 5.0/16.0;
+            px[i+w  ].g -= dg * 5.0/16.0;
+            px[i+w  ].b -= db * 5.0/16.0;
         }
 
-        px[i].r = nluma;
-        px[i].g = nluma;
-        px[i].b = nluma;
+        px[i].r = r;
+        px[i].g = g;
+        px[i].b = b;
     }
 
     return 0;
@@ -187,13 +210,16 @@ int image_contrast(Image* imgp, double x) {
     return 0;
 }
 
-/* TODO: implement */
+int image_grayscale(Image* imgp) {
+    int i;
 
-int image_brightness(Image* imgp, int db) {
-    return 0;
-}
-
-int image_hue(Image* imgp, int dh) {
+    for (i = 0; i < imgp->data_size; i++) {
+        unsigned char luma = (imgp->data[i].r*65.0 + imgp->data[i].g*129.0 + imgp->data[i].b*25.0) / 219.0;
+        imgp->data[i].r = luma;
+        imgp->data[i].g = luma;
+        imgp->data[i].b = luma;
+    }
+    
     return 0;
 }
 
